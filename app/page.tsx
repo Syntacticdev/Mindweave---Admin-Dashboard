@@ -1,103 +1,138 @@
+"use client"
+import VisitChart from "@/components/Analytics/VisitChart";
+import SalesVolumeCard from "@/components/Cards/SalesVolumeCard";
+import Header from "@/components/Dashboard/Header";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { useSidebar } from "@/components/ui/sidebar";
+import { chartConfig, profitOverViewChartData } from "@/datas/chartdata";
+import { Archive, CircleDollarSign, MoveDownRight, MoveUpRight, Target } from "lucide-react";
 import Image from "next/image";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 export default function Home() {
+  const { state } = useSidebar()
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div>
+      <Header />
+      <div className={`grid p-3 grid-cols-1 gap-4 ${state == "expanded" ? "lg:grid-cols-2" : "lg:grid-cols-3"} `}>
+        <div className="grid gap-2 ">
+          <SalesVolumeCard increasing={false} icon={<Target />} title={"Total Product Sales"} linkTitle={"View Sales Details"} value={"118,594"} pageLink="/" percent={10} />
+          <SalesVolumeCard increasing={true} icon={<Archive />} title={"Total Volume of Products"} linkTitle={"View All Products"} value={"257,361"} pageLink="/" percent={54} />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <div className="flex flex-col justify-between  gap-2 bg-white rounded-lg p-4">
+          <h3 className="text-sm font-bold">Total Profit Overview</h3>
+          <div className='grid '>
+            <div className='flex gap-2 items-center'>
+              <span className='text-2xl font-semibold'>$96,715</span>
+              <div className={`flex items-center rounded-full gap-1 p-1 ${true ? "bg-green-400" : 'bg-red-500'}`}>
+                <span className='text-xs font-semibold'>{true ? "+" : "-"} 10%</span>
+                {true ? <MoveUpRight className="w-3 h-3" /> : <MoveDownRight className="w-3 h-3" />}
+              </div>
+            </div>
+          </div>
+          <div className='flex gap-2 justify-end'>
+            <div className='flex gap-1 items-center'>
+              <div className='bg-gray-200 w-3 h-3 rounded-full' />
+              <span className="text-xs font-semibold">Total Revenue</span>
+            </div>
+            <div className='flex gap-1 items-center'>
+              <div className='bg-blue-200 w-3 h-3 rounded-full' />
+              <span className="text-xs font-semibold">Total Profit</span>
+            </div>
+          </div>
+          <ChartContainer className="h-60" config={chartConfig}>
+            <BarChart accessibilityLayer data={profitOverViewChartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="dashed" />}
+              />
+              <Bar dataKey="orders" fill="var(--color-gray-200)" radius={4} />
+              <Bar dataKey="revenue" fill="var(--color-blue-200)" radius={4} />
+            </BarChart>
+          </ChartContainer>
+        </div>
+
+
+        <div className={`grid bg-white rounded-lg p-4 ${state == "expanded" && "col-span-2"}  `}>
+          <div>
+            <h3 className="text-sm font-bold">Total Sales Statistics</h3>
+          </div>
+          <div className={` grid-cols-1 grid ${state == "expanded" ? "grid-cols-2" : "grid-cols-1`"}`}>
+            <div className=" ">
+              <VisitChart />
+            </div>
+
+            <div >
+              <div className="flex  items-center justify-between">
+                <div className='grid gap-1 py-4'>
+                  <h3 className='text-gray-500 font-bold text-xs'>Total Number of Sales</h3>
+                  <span className='text-2xl font-semibold'>$37,715</span>
+                </div>
+                <CircleDollarSign />
+              </div>
+
+              <div className="divider" />
+
+              <div className="grid gap-y-3 grid-cols-2 lg:grid-cols-4">
+                <div>
+                  <div className='flex gap-1 items-center'>
+                    <div className='bg-blue-200 w-3 h-3 rounded-full' />
+                    <span className="text-xs font-semibold">Electronics</span>
+                  </div>
+                  <span className="font-bold text-sm">$14,349</span>
+                </div>
+                <div>
+                  <div className='flex gap-1 items-center'>
+                    <div className='bg-blue-200 w-3 h-3 rounded-full' />
+                    <span className="text-xs font-semibold">Furniture</span>
+                  </div>
+                  <span className="font-bold text-sm">$29,153</span>
+                </div>
+                <div>
+                  <div className='flex gap-1 items-center'>
+                    <div className='bg-blue-200 w-3 h-3 rounded-full' />
+                    <span className="text-xs font-semibold">Clothes</span>
+                  </div>
+                  <span className="font-bold text-sm">$11,682</span>
+                </div>
+                <div>
+                  <div className='flex gap-1 items-center'>
+                    <div className='bg-blue-200 w-3 h-3 rounded-full' />
+                    <span className="text-xs font-semibold">Shoes</span>
+                  </div>
+                  <span className="font-bold text-sm">$35,715</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          1
+        </div>
+        <div>2</div>
+      </div>
+
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4">
+        <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">1</div>
+        <div className="bg-primary-foreground p-4 rounded-lg">2</div>
+        <div className="bg-primary-foreground p-4 rounded-lg">3</div>
+        <div className="bg-primary-foreground p-4 rounded-lg">4</div>
+        <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">5</div>
+        <div className="bg-primary-foreground p-4 rounded-lg">6</div>
+      </div> */}
     </div>
   );
 }
