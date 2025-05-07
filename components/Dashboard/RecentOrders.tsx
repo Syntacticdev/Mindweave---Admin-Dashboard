@@ -1,7 +1,24 @@
-import React from 'react'
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import OrderTable from './OrderTable';
+import { columns, OrdersType } from '@/datas/orders';
 
 export default function RecentOrders() {
+    const [ordersdata, setOrdersData] = useState<OrdersType[]>([]);
+
+    useEffect(() => {
+        async function fetchOrders() {
+            const response = await fetch('/api/orders'); // Replace with your API endpoint
+            const data = await response.json();
+            setOrdersData(data);
+        }
+        fetchOrders();
+    }, []);
+
     return (
-        <div>RecentOrders</div>
-    )
+        <div>
+            <OrderTable columns={columns} data={ordersdata} />
+        </div>
+    );
 }

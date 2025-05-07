@@ -2,35 +2,26 @@
 
 import { TrendingUp } from "lucide-react"
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
+import { CardContent } from "@/components/ui/card"
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import {
-    ChartConfig,
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
-} from "@/components/ui/chart"
 const chartData = [
     { month: "January", electronics: 1260, furniture: 870, shoes: 540, clothes: 720 },
-
 ]
 
 const chartConfig = {
-    desktop: {
-        label: "Desktop",
-        color: "hsl(var(--chart-1))",
+    electronics: {
+        label: "Electronics",
     },
-    mobile: {
-        label: "Mobile",
-        color: "hsl(var(--chart-2))",
+    furniture: {
+        label: "Furnitures"
     },
+    clothes: {
+        label: "Clothes",
+    },
+    shoes: {
+        label: "Shoes"
+    }
 } satisfies ChartConfig
 
 export default function VisitChart() {
@@ -96,20 +87,6 @@ export default function VisitChart() {
                             }}
                         />
                     </PolarRadiusAxis>
-                    <RadialBar
-                        dataKey="desktop"
-                        stackId="a"
-                        cornerRadius={5}
-                        fill="blue"
-                        className="stroke-transparent stroke-2"
-                    />
-                    <RadialBar
-                        dataKey="mobile"
-                        fill="red"
-                        stackId="a"
-                        cornerRadius={5}
-                        className="stroke-transparent stroke-2"
-                    />
                     <RadialBar
                         dataKey="electronics"
                         stackId="a"

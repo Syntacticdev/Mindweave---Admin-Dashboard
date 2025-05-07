@@ -2,11 +2,14 @@
 import VisitChart from "@/components/Analytics/VisitChart";
 import SalesVolumeCard from "@/components/Cards/SalesVolumeCard";
 import Header from "@/components/Dashboard/Header";
+import RecentOrders from "@/components/Dashboard/RecentOrders";
+import TopSellingProductCard from "@/components/Dashboard/TopSellingProductCard";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useSidebar } from "@/components/ui/sidebar";
 import { chartConfig, profitOverViewChartData } from "@/datas/chartdata";
 import { Archive, CircleDollarSign, MoveDownRight, MoveUpRight, Target } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 export default function Home() {
@@ -85,28 +88,28 @@ export default function Home() {
               <div className="grid gap-y-3 grid-cols-2 lg:grid-cols-4">
                 <div>
                   <div className='flex gap-1 items-center'>
-                    <div className='bg-blue-200 w-3 h-3 rounded-full' />
+                    <div className='bg-[#2680d9] w-3 h-3 rounded-full' />
                     <span className="text-xs font-semibold">Electronics</span>
                   </div>
                   <span className="font-bold text-sm">$14,349</span>
                 </div>
                 <div>
                   <div className='flex gap-1 items-center'>
-                    <div className='bg-blue-200 w-3 h-3 rounded-full' />
-                    <span className="text-xs font-semibold">Furniture</span>
+                    <div className='bg-[#26d926] w-3 h-3 rounded-full' />
+                    <span className="text-xs font-semibold">Furnitures</span>
                   </div>
                   <span className="font-bold text-sm">$29,153</span>
                 </div>
                 <div>
                   <div className='flex gap-1 items-center'>
-                    <div className='bg-blue-200 w-3 h-3 rounded-full' />
+                    <div className='bg-[#d92626] w-3 h-3 rounded-full' />
                     <span className="text-xs font-semibold">Clothes</span>
                   </div>
                   <span className="font-bold text-sm">$11,682</span>
                 </div>
                 <div>
                   <div className='flex gap-1 items-center'>
-                    <div className='bg-blue-200 w-3 h-3 rounded-full' />
+                    <div className='bg-[#d98026] w-3 h-3 rounded-full' />
                     <span className="text-xs font-semibold">Shoes</span>
                   </div>
                   <span className="font-bold text-sm">$35,715</span>
@@ -118,11 +121,28 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          1
+      <div className="grid grid-cols-1 p-2 gap-4 lg:grid-cols-3">
+        <div className="lg:col-span-2 bg-white rounded-lg">
+          <div className="flex justify-between items-center p-4">
+            <div className="w-3/5">
+              <h3 className="font-bold ">Recent Orders</h3>
+              <p className="text-xs text-muted-foreground ">Keep track of recent order data and other informations.</p>
+            </div>
+
+            <Link className="text-sm h-fit w-fit flex shadow-md px-3 py-2 rounded-full  hover:bg-black hover:text-white" href="/orders">View All</Link>
+          </div>
+          <RecentOrders />
         </div>
-        <div>2</div>
+        <div className="bg-white p-4 rounded-lg">
+          <div className="w-3/5">
+            <h3 className="font-bold ">Top Selling Products</h3>
+          </div>
+          <div className="mt-4  ">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <TopSellingProductCard key={i} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

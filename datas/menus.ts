@@ -4,12 +4,12 @@ import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
 export const mainMenu = [
     {
         title: "Home",
-        url: "#",
+        url: "/",
         icon: Home,
     },
     {
-        title: "Inbox",
-        url: "#",
+        title: "Orders",
+        url: "/orders",
         icon: Inbox,
     },
     {
