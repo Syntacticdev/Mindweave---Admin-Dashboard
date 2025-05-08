@@ -12,6 +12,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link";
+import { OrdersType } from "@/types/order";
 
 export const orders = [
     {
@@ -124,19 +125,30 @@ export const orders = [
         address: "951 Spruce St, Hawkins",
         quantity: 1,
     },
+    {
+        orderId: "ORD011",
+        productName: "Noise-Cancelling Earbuds",
+        date: "2025-05-10",
+        payment: "PayPal",
+        amount: 149.99,
+        status: "Shipped",
+        customerName: "Hannah Baker",
+        address: "951 Spruce St, Hawkins",
+        quantity: 1,
+    },
+    {
+        orderId: "ORD012",
+        productName: "Noise-Cancelling Earbuds",
+        date: "2025-05-10",
+        payment: "PayPal",
+        amount: 149.99,
+        status: "Shipped",
+        customerName: "Hannah Baker",
+        address: "951 Spruce St, Hawkins",
+        quantity: 1,
+    },
 ];
 
-export type OrdersType = {
-    orderId: string,
-    productName: string,
-    date: string,
-    payment: string,
-    amount: number,
-    status: string,
-    customerName: string,
-    address: string,
-    quantity: number
-}
 
 
 

@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, Home, Inbox, Package, Search, Settings, ShoppingCart } from "lucide-react"
 
 
 export const mainMenu = [
@@ -10,12 +10,12 @@ export const mainMenu = [
     {
         title: "Orders",
         url: "/orders",
-        icon: Inbox,
+        icon: ShoppingCart,
     },
     {
-        title: "Calendar",
+        title: "Products",
         url: "#",
-        icon: Calendar,
+        icon: Package,
     },
     {
         title: "Search",

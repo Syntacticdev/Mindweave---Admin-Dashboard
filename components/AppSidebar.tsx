@@ -30,7 +30,7 @@ function AppSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
+                    <SidebarGroupLabel>Tools</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {mainMenu.map((item) => (

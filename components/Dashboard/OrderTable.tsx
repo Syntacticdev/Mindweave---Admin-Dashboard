@@ -16,7 +16,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { OrdersType } from '@/datas/orders'
 
 
 interface DataTableProps<TData, TValue> {
