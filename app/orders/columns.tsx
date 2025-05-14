@@ -30,11 +30,13 @@ export const columns: ColumnDef<OrdersType>[] = [
             return <div className="flex items-center gap-2">
                 <div className="relative">
                     <Image
-                        src={"/public/images/electronics.jpg"}
+                        src={"/images/electronics.jpg"}
                         alt="Product Image"
                         width={40}
                         height={40}
-                        className="rounded-md" />
+                        className="rounded-md"
+                        priority
+                    />
                 </div>
                 <span className="font-medium">{row.getValue("productName")}</span>
             </div>

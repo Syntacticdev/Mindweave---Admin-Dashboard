@@ -3,15 +3,16 @@ import React from 'react'
 import Notification from './Notification'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Input } from '../ui/input'
+import Link from 'next/link'
 
 export default function Header() {
   return (
     <div className='flex w-full py-3 px-5 justify-between items-center shadow-xs '>
-      {/* <div className='text-sm text-center flex  items-center'>
-        <span>Application</span>
-        <ChevronRight className='w-4 h-4' />
-        <span className='font-bold text-lg'>Dashboard</span>
-      </div> */}
+
+      <Link href="/" className='flex lg:hidden items-center gap-2'>
+        <span className='font-bold text-lg'>Mindweave</span>
+      </Link>
+
 
       <div className='hidden lg:flex items-center ml-[30px] gap-4 bg-gray-200 rounded-full px-3 '>
         <Input

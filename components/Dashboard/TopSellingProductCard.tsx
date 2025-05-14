@@ -4,14 +4,14 @@ import React from 'react'
 export default function TopSellingProductCard() {
     return (
         <div className='h-25 flex rounded-2xl gap-3 shadow-md p-3 '>
-            <div className='relative max-w-[100px] w-[25%] rounded-lg overflow-hidden h-full '>
+            <div className='relative max-w-[100px] w-[25%] rounded-md overflow-hidden h-full '>
                 <Image
                     src="/images/elect.jpg"
                     alt="avatar"
                     width={100}
                     height={100}
                     priority
-
+                    className='rounded-md object-cover'
                 />
             </div>
             <div className='flex flex-col gap-1'>
