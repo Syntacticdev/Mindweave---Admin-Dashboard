@@ -14,17 +14,17 @@ export const mainMenu = [
     },
     {
         title: "Products",
-        url: "#",
+        url: "/products",
         icon: Package,
     },
     {
         title: "Search",
-        url: "#",
+        url: "/search",
         icon: Search,
     },
     {
         title: "Settings",
-        url: "#",
+        url: "/settings",
         icon: Settings,
     },
 ]

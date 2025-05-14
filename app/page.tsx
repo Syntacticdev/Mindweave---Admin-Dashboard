@@ -16,7 +16,7 @@ export default function Home() {
   const { state } = useSidebar()
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className={`grid p-3 grid-cols-1 gap-4 ${state == "expanded" ? "lg:grid-cols-2" : "lg:grid-cols-3"} `}>
         <div className="grid gap-2 ">
           <SalesVolumeCard increasing={false} icon={<Target />} title={"Total Product Sales"} linkTitle={"View Sales Details"} value={"118,594"} pageLink="/" percent={10} />

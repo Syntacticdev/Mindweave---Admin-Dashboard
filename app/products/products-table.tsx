@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     ColumnDef,
     flexRender,
@@ -12,15 +12,22 @@ import {
     getSortedRowModel
 } from "@tanstack/react-table"
 
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from '@/components/ui/button'
-import { OrderStatus } from '@/constants/order'
-import { cn } from '@/lib/utils'
-import { Calendar } from '@/components/ui/calendar'
-import { format } from "date-fns"
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { CalendarIcon, RefreshCw } from 'lucide-react'
+import { ProductType } from '@/types/products'
+import ProductFilter from '@/components/ProductFilter'
 
 
 interface DataTableProps<TData, TValue> {
@@ -29,12 +36,12 @@ interface DataTableProps<TData, TValue> {
 }
 
 
-export default function OrdersTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export default function ProductsTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
-
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [activeTab, setActiveTab] = React.useState("all")
-    const [date, setDate] = React.useState<Date | undefined>()
+    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+
+
 
     const table = useReactTable({
         data,
@@ -51,77 +58,31 @@ export default function OrdersTable<TData, TValue>({ columns, data }: DataTableP
         }
     })
 
-    const filterByDate = (dt: Date | null) => {
-        const selectedDate = dt && format(dt, 'yyyy/MM/dd').replaceAll("/", "-").toString()
-        table.getColumn("date")?.setFilterValue(selectedDate)
-    }
-
-    const filterByStatus = (filterValue: string) => {
-        table.getColumn("status")?.setFilterValue(filterValue)
-        setActiveTab(filterValue == "" ? "all" : filterValue)
-        console.log(cn("text-xs uppercase ", activeTab === "all" && "text-blue-400 font-bold underline underline-offset-1")
-        )
-    }
-
     const resetFilters = () => {
         table.resetColumnFilters()
-        table.setSorting([])
         setActiveTab("all")
-        setDate(undefined)
+        table.setSorting([])
     }
 
     return (
         <div>
             <div className='p-4'>
-                <h2 className='font-bold text-lg px-2'>ORDERS</h2>
+                <h2 className='font-bold text-lg px-2'>PRODUCT LISTS</h2>
 
                 <div className='flex items-center justify-between p-2 my-2 rounded-md bg-white'>
                     <div className="flex gap-3 ">
-                        <button
-                            onClick={() => filterByStatus("")}
-                            className={cn("text-xs capitalize cursor-pointer ", activeTab === "all" && "text-blue-400 font-bold decoration-2 underline underline-offset-1",)}
-                        >All Orders</button>
-                        {Object.keys(OrderStatus).map((status) => (
-                            <button
-                                key={status}
-                                onClick={() => filterByStatus(status)}
-                                className={cn("text-xs capitalize cursor-pointer ", activeTab === status && "text-blue-400 font-bold decoration-2 underline underline-offset-1")}
-                            >{status.toLowerCase()}</button>
-                        ))}
+                        <div className='flex flex-col gap-1.5'>
+                            <span className='text-sm font-medium pl-1'>Category</span>
+                            <ProductFilter table={table} actions={["Furniture", "Electronic"]} label='category' />
+                        </div>
+                        <div className='flex flex-col gap-1.5'>
+                            <span className='text-sm font-medium pl-1'>Status</span>
+                            <ProductFilter table={table} actions={["Active", "Inactive"]} label='status' />
+                        </div>
 
                     </div>
 
                     <div className='hidden md:flex items-center justify-end space-x-2'>
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-[240px] pl-3 text-left font-normal",
-                                        date && "text-muted-foreground"
-                                    )}
-                                >
-                                    {date ? (
-                                        format(date, "PPP")
-                                    ) : (
-                                        <span>Filter by date</span>
-                                    )}
-                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar
-                                    mode="single"
-                                    selected={date}
-                                    onSelect={setDate}
-                                    onDayClick={(dt) => filterByDate(dt)}
-                                    disabled={(date) =>
-                                        date > new Date() || date < new Date("1900-01-01")
-                                    }
-                                    initialFocus
-                                />
-                            </PopoverContent>
-                        </Popover>
                         <Button onClick={() => resetFilters()} variant={"outline"}>
                             <RefreshCw />
                         </Button>

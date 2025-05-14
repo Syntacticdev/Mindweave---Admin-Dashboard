@@ -30,8 +30,7 @@ export const columns: ColumnDef<OrdersType>[] = [
             return <div className="flex items-center gap-2">
                 <div className="relative">
                     <Image
-                        // src={row.getValue("productImage")}
-                        src={"/images/avatar.png"}
+                        src={"/public/images/electronics.jpg"}
                         alt="Product Image"
                         width={40}
                         height={40}
@@ -45,10 +44,6 @@ export const columns: ColumnDef<OrdersType>[] = [
         accessorKey: "date",
         header: "Date"
     },
-    // {
-    //     accessorKey: "payment",
-    //     header: "Payment",
-    // },
     {
         accessorKey: "amount",
         header: ({ column }) => {
@@ -102,10 +97,6 @@ export const columns: ColumnDef<OrdersType>[] = [
         accessorKey: "address",
         header: "Address"
     },
-    // {
-    //     accessorKey: "quantity",
-    //     header: "Quantity"
-    // },
     {
         id: "actions",
         header: "Action",

@@ -4,6 +4,8 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/AppSidebar";
 import { cookies } from "next/headers"
+import Header from "@/components/Dashboard/Header";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mindwave",
+  title: "Mindweave",
   description: "Mindweave E-commerce Admin Dashboard With Analytics",
 };
 
@@ -39,8 +41,10 @@ export default async function RootLayout({
         <SidebarProvider defaultOpen={defaultOpen}>
           <AppSidebar />
           <main className="w-full relative bg-slate-50 ">
-            <SidebarTrigger />
+            <SidebarTrigger className="absolute left-[-5px] top-[16px] " />
+            <Header />
             {children}
+            <Toaster />
           </main>
         </SidebarProvider>
       </body>
